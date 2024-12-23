@@ -117,6 +117,7 @@ app.post('/token', async (req, res) => {
 });
 
 // To-Do CRUD Operations
+
 app.use('/todos', async (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -131,6 +132,7 @@ app.use('/todos', async (req, res, next) => {
   }
 });
 
+//fetch all todo
 app.get('/todos', async (req, res) => {
   try {
     const todos = await Todo.find({ userId: req.userId });
@@ -140,6 +142,7 @@ app.get('/todos', async (req, res) => {
   }
 });
 
+//Create todo
 app.post('/todos', addTodoLimiter, async (req, res) => {
   const { content } = req.body;
   if (!content) return res.status(400).json({ message: 'Missing content' });
@@ -153,6 +156,7 @@ app.post('/todos', addTodoLimiter, async (req, res) => {
   }
 });
 
+//Update todo
 app.put('/todos/:id', async (req, res) => {
   const { id } = req.params;
   const { content } = req.body;
@@ -171,6 +175,7 @@ app.put('/todos/:id', async (req, res) => {
   }
 });
 
+//Delete todo
 app.delete('/todos/:id', async (req, res) => {
   const { id } = req.params;
   try {
